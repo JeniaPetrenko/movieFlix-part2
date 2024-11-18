@@ -1,23 +1,28 @@
-import { useState, useEffect } from 'react';
-import { IMovie } from '../Models/IMovie';
-import { LoadMovies } from '../Utilities/LoadMovies';
-import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { IMovie } from "../Models/IMovie";
+import { LoadMovies } from "../Utilities/LoadMovies";
+import ItemsList from "../Components/ItemsList";
 
 export const MoviesPage = () => {
   const [movies, setMovies] = useState<IMovie[]>([]);
 
   useEffect(() => {
+    console.log(movies);
     loadMovies();
   }, []);
 
   const loadMovies = async () => {
-    setMovies(await LoadMovies('discover/movie'));
+    setMovies(await LoadMovies("discover/movie"));
+    console.log(movies);
   };
 
   return (
     <>
-      <h1 className='page-title'>Populära Filmer</h1>
-      <section className='grid'>
+      <h1 className="page-title">Populära Filmer</h1>
+      <ItemsList items={movies} />
+
+      {/*Komponent - skickat till ItemsList*/}
+      {/* <section className='grid'>
         {movies.map((movie) => (
           <section className='card' key={movie.id}>
             <NavLink to={`/movies/${movie.id}`}>
@@ -32,7 +37,7 @@ export const MoviesPage = () => {
             </div>
           </section>
         ))}
-      </section>
+      </section> */}
     </>
   );
 };

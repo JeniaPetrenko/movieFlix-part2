@@ -1,23 +1,28 @@
-import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import { IShow } from '../Models/IShow';
-import { LoadShows } from '../Utilities/LoadShows';
+import { useState, useEffect } from "react";
+import { IShow } from "../Models/IShow";
+import { LoadShows } from "../Utilities/LoadShows";
+import ItemsList from "../Components/ItemsList";
 
 export const TVShowsPage = () => {
   const [shows, setShows] = useState<IShow[]>([]);
 
   useEffect(() => {
+    console.log(shows);
     loadMovies();
   }, []);
 
   const loadMovies = async () => {
-    setShows(await LoadShows('discover/tv'));
+    setShows(await LoadShows("discover/tv"));
+    console.log(shows);
   };
 
   return (
     <>
-      <h1 className='page-title'>Populära Serier</h1>
-      <section className='grid'>
+      <h1 className="page-title">Populära Serier</h1>
+      <ItemsList items={shows} />
+
+      {/*Komponent skickats till
+       <section className='grid'>
         {shows.map((show) => (
           <section className='card'>
             <NavLink to={`/shows/${show.id}`}>
@@ -32,7 +37,7 @@ export const TVShowsPage = () => {
             </div>
           </section>
         ))}
-      </section>
+      </section> */}
     </>
   );
 };
